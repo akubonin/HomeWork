@@ -5,7 +5,7 @@ include Produser
 
 attr_reader :type, :id, :station_index, :current_staion, :route_stations
 
-@@produced_trains = {}
+@@trains = {}
 
   def initialize(id, type)
     @id = id
@@ -15,15 +15,11 @@ attr_reader :type, :id, :station_index, :current_staion, :route_stations
     @waggons_count = 0
     @route_stations = []
     @current_staion = nil
-    @@produced_trains[id] = self
-
-  class << self
-    def find(id)
-      @@produced_trains[id]
-    end
+    @@trains[id] = self
   end
 
-
+  def self.find(id)
+      @@trains[id]
   end
 
   def speed_up
