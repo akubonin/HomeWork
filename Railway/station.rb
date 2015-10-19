@@ -53,6 +53,15 @@ attr_writer :created_stations
   def depature(train)
     @trains.delete(train)
   end
+
+  # def self.create_arrival_methods
+    Train.all_trains.each do |train|
+      define_method(train) do
+        arrive(train)
+      end
+    end
+  # end
+
 end
 
 

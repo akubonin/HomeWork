@@ -1,9 +1,13 @@
 require_relative 'produser_module.rb'
+require_relative 'attr_module.rb'
 
 class Train
   include Produser
+  extend Attr
 
   attr_reader :type, :id, :station_index, :current_staion, :route_stations
+  attr_accessor_with_history :x, :y
+  strong_attr_accessor :z, String
 
   @@trains = {}
 
@@ -24,6 +28,15 @@ class Train
     raise ArgumentError, "ID should be at least 3 characters long" if id.length < 3
     raise ArgumentError, "Wrong format of train ID" if id !~ /(\w{3})(-{0,1})(\w{2})/i
     true
+  end
+
+
+  def self.all_trains
+    trains = []
+    @@trains.each_key do |key|
+      trains << key
+    end
+    trains
   end
 
   def do_block (&block)
